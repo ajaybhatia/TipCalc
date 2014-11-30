@@ -2,10 +2,13 @@ package com.ajaybhatia.tipcalc;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends Activity {
 
@@ -43,6 +46,63 @@ public class MainActivity extends Activity {
 		finalBillET = (EditText)findViewById(R.id.finalBillEditText);
 		
 		tipSeekBar = (SeekBar)findViewById(R.id.changeTipSeekBar);
+		
+		billBeforeTipET.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				try {
+					billBeforeTip = Double.parseDouble(s.toString());
+				} catch (NumberFormatException e) {
+					billBeforeTip = 0.0;
+				}
+				
+				updateTipAndFinalBill();
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		tipSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				tipAmount = tipSeekBar.getProgress() * 0.01;
+				tipAmountET.setText(String.format("%.2f", tipAmount));
+				updateTipAndFinalBill();
+			}
+		});
+	}
+	
+	private void updateTipAndFinalBill() {
+		double tipAmount = Double.parseDouble(tipAmountET.getText().toString().trim());
+		double finalBill = billBeforeTip + (billBeforeTip * tipAmount);
+		
+		finalBillET.setText(String.format("%.2f", finalBill));
 	}
 
 	@Override
