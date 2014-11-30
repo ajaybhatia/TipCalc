@@ -4,4 +4,15 @@
     <string name="app_name">TipCalc</string>
     <string name="action_settings">Settings</string>
 
+	<string name="bill_tv">Bill</string>
+	<string name="bill_et">0.0</string>
+	
+	<string name="tip_tv">Tip</string>
+	<string name="tip_et">0.15</string>
+	
+	<string name="final_bill_tv">Final Bill</string>
+	<string name="final_bill_et">0.0</string>
+	
+	<string name="change_tip_tv">Change Tip</string>
+	
 </resources>
