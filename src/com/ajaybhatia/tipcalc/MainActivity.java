@@ -34,6 +34,15 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		outState.putDouble(TOTAL_BILL, finalBill);
+		outState.putDouble(CURRENT_TIP, tipAmount);
+		outState.putDouble(BILL_WITHOUT_TIP, billBeforeTip);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
