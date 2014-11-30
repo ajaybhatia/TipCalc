@@ -4,9 +4,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
+	private static final String TOTAL_BILL = "TOTAL_BILL";
+	private static final String CURRENT_TIP = "CURRENT_TIP";
+	private static final String BILL_WITHOUT_TIP = "BILL_WITHOUT_TIP";
+	
+	private double billBeforeTip;
+	private double tipAmount;
+	private double finalBill;
+	
+	EditText billBeforeTipET;
+	EditText tipAmountET;
+	EditText finalBillET;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
