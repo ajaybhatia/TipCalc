@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.SeekBar;
 
 public class MainActivity extends Activity {
 
@@ -19,6 +20,8 @@ public class MainActivity extends Activity {
 	EditText billBeforeTipET;
 	EditText tipAmountET;
 	EditText finalBillET;
+	
+	SeekBar tipSeekBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class MainActivity extends Activity {
 		billBeforeTipET = (EditText)findViewById(R.id.billEditText);
 		tipAmountET = (EditText)findViewById(R.id.tipEditText);
 		finalBillET = (EditText)findViewById(R.id.finalBillEditText);
+		
+		tipSeekBar = (SeekBar)findViewById(R.id.changeTipSeekBar);
 	}
 
 	@Override
