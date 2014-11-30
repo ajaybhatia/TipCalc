@@ -289,7 +289,7 @@ public class MainActivity extends Activity {
 		for (int item : checkListValues)
 			checkListTotal += item;
 		
-		tipAmountET.setText(String.format("%.2f", checkListTotal));
+		tipAmountET.setText(String.format("%.2f", checkListTotal * 0.01));
 	}	
 	
 	private void updateTipAndFinalBill() {
