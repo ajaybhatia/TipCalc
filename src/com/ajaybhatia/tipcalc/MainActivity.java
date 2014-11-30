@@ -2,13 +2,27 @@ package com.ajaybhatia.tipcalc;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Chronometer;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -20,9 +34,32 @@ public class MainActivity extends Activity {
 	private double tipAmount;
 	private double finalBill;
 	
+	private int[] checkListValues = new int[12];
+	
+	private long secondsYouWaited = 0L;
+	
 	EditText billBeforeTipET;
 	EditText tipAmountET;
 	EditText finalBillET;
+	
+	CheckBox friendlyCB;
+	CheckBox specialsCB;
+	CheckBox opinionCB;
+	
+	RadioGroup availableRG;
+	RadioButton availableBadRB;
+	RadioButton availableOKRB;
+	RadioButton availableGoodRB;
+	
+	Spinner problemSP;
+	
+	Button startChronometerBT;
+	Button pauseChronometerBT;
+	Button resetChronometerBT;
+	
+	Chronometer timeWaitingChronometer;
+	
+	TextView timeWaitingTV;
 	
 	SeekBar tipSeekBar;
 	
@@ -96,7 +133,164 @@ public class MainActivity extends Activity {
 				updateTipAndFinalBill();
 			}
 		});
+		
+		friendlyCB = (CheckBox)findViewById(R.id.friendlyCheckBox);
+		specialsCB = (CheckBox)findViewById(R.id.specialsCheckBox);
+		opinionCB = (CheckBox)findViewById(R.id.opinionCheckBox);
+		
+		specialUpIntroCheckBoxes();
+		
+		availableRG = (RadioGroup)findViewById(R.id.availableRadioGroup);
+		availableBadRB = (RadioButton)findViewById(R.id.availableBadRadio);
+		availableOKRB = (RadioButton)findViewById(R.id.availableOKRadio);
+		availableGoodRB = (RadioButton)findViewById(R.id.availableGoodRadio);
+		
+		addChangeListenerToRadios();
+		
+		problemSP = (Spinner)findViewById(R.id.problemsSpinner);
+		
+		addItemSelectedListenerToSpinner();
+		
+		startChronometerBT = (Button)findViewById(R.id.startChronometerButton);
+		pauseChronometerBT = (Button)findViewById(R.id.pauseChronometerButton);
+		resetChronometerBT = (Button)findViewById(R.id.resetChronometerButton);
+		
+		setButtonsOnClickListeners();
+		
+		timeWaitingChronometer = (Chronometer)findViewById(R.id.timeWaitingChronometer);
+		
+		timeWaitingTV = (TextView)findViewById(R.id.timeWaitingTextView);
+		
 	}
+	
+	private void setButtonsOnClickListeners() {
+		startChronometerBT.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int stoppedMilliseconds = 0;
+				String chronoText = timeWaitingChronometer.getText().toString().trim();
+				String[] array = chronoText.split(":");
+				
+				if (array.length == 2) {
+					stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 +
+							Integer.parseInt(array[1]) * 1000;
+				} else if (array.length == 3) {
+					stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 +
+							Integer.parseInt(array[1]) * 60 * 1000 +
+							Integer.parseInt(array[2]) * 1000;
+				}
+				
+				timeWaitingChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
+				secondsYouWaited = Long.parseLong(array[1]);
+				updateTipBasedOnWaited(secondsYouWaited);
+				timeWaitingChronometer.start();
+			}
+		});
+		
+		pauseChronometerBT.setOnClickListener(new OnClickListener() { 
+			
+			@Override public void onClick(View v) { 
+				timeWaitingChronometer.stop(); 
+			} 
+		}); 
+		
+		resetChronometerBT.setOnClickListener(new OnClickListener() { 
+			
+			@Override public void onClick(View v) { 
+				timeWaitingChronometer.setBase(SystemClock.elapsedRealtime());
+				secondsYouWaited = 0; 
+			} 
+		});
+			
+	}
+
+	private void updateTipBasedOnWaited(long secondsYouWaited) {
+		checkListValues[9] = (secondsYouWaited > 10) ? -2 : 2;
+		setTipFromWaitressCheckList();
+		updateTipAndFinalBill();
+	}
+	
+	private void addItemSelectedListenerToSpinner() {
+		problemSP.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				checkListValues[6] = (problemSP.getSelectedItem()).equals("Bad") ? -1 : 0;
+				checkListValues[7] = (problemSP.getSelectedItem()).equals("OK") ? 3 : 0;
+				checkListValues[8] = (problemSP.getSelectedItem()).equals("Good") ? 6 : 0;
+				
+				setTipFromWaitressCheckList();
+				updateTipAndFinalBill();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+	}
+
+	private void addChangeListenerToRadios() {
+		availableRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				checkListValues[3] = (availableBadRB.isChecked()) ? -1 : 0;
+				checkListValues[4] = (availableOKRB.isChecked()) ? 2 : 0;
+				checkListValues[5] = (availableGoodRB.isChecked()) ? 4 : 0;
+				
+				setTipFromWaitressCheckList();
+				updateTipAndFinalBill();
+			}
+		});
+		
+	}
+
+	private void specialUpIntroCheckBoxes() {
+		friendlyCB.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkListValues[0] = (isChecked) ? 4 : 0;
+				
+				setTipFromWaitressCheckList();
+				updateTipAndFinalBill();
+			}
+		});
+		
+		specialsCB.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkListValues[1] = (isChecked) ? 1 : 0;
+				
+				setTipFromWaitressCheckList();
+				updateTipAndFinalBill();
+			}
+		});
+		
+		opinionCB.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkListValues[2] = (isChecked) ? 2 : 0;
+				
+				setTipFromWaitressCheckList();
+				updateTipAndFinalBill();
+			}
+		});
+	}
+
+	private void setTipFromWaitressCheckList() {
+		int checkListTotal = 0;
+		
+		for (int item : checkListValues)
+			checkListTotal += item;
+		
+		tipAmountET.setText(String.format("%.2f", checkListTotal));
+	}	
 	
 	private void updateTipAndFinalBill() {
 		double tipAmount = Double.parseDouble(tipAmountET.getText().toString().trim());
