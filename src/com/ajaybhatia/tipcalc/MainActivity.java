@@ -34,6 +34,10 @@ public class MainActivity extends Activity {
 			tipAmount = savedInstanceState.getDouble(CURRENT_TIP);
 			finalBill = savedInstanceState.getDouble(TOTAL_BILL);
 		}
+
+		billBeforeTipET = (EditText)findViewById(R.id.billEditText);
+		tipAmountET = (EditText)findViewById(R.id.tipEditText);
+		finalBillET = (EditText)findViewById(R.id.finalBillEditText);
 	}
 
 	@Override
