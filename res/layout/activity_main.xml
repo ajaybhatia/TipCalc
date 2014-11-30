@@ -14,8 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
         android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:gravity="left"
         android:text="@string/bill_tv" />
 
     <EditText
@@ -31,25 +32,6 @@
 
         <requestFocus />
     </EditText>
-
-    <TextView
-        android:id="@+id/tipTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/billEditText"
-        android:layout_toRightOf="@+id/billEditText"
-        android:text="@string/tip_tv" />
-
-    <EditText
-        android:id="@+id/tipEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tipTextView"
-        android:layout_alignBottom="@+id/tipTextView"
-        android:layout_toRightOf="@+id/tipTextView"
-        android:ems="4"
-        android:inputType="numberDecimal"
-        android:text="@string/tip_et" />
 
     <TextView
         android:id="@+id/finalBillTextView"
@@ -88,5 +70,27 @@
         android:layout_alignLeft="@+id/changeTipTextView"
         android:layout_alignRight="@+id/billEditText"
         android:progress="15" />
+
+    <EditText
+        android:id="@+id/tipEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tipTextView"
+        android:layout_alignBottom="@+id/tipTextView"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:ems="4"
+        android:inputType="numberDecimal"
+        android:text="@string/tip_et" />
+
+    <TextView
+        android:id="@+id/tipTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/billEditText"
+        android:layout_alignBottom="@+id/billEditText"
+        android:layout_toLeftOf="@+id/tipEditText"
+        android:gravity="right"
+        android:text="@string/tip_tv" />
 
 </RelativeLayout>
