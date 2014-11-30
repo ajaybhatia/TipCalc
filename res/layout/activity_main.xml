@@ -8,4 +8,85 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ajaybhatia.tipcalc.MainActivity" >
 
+    <TextView
+        android:id="@+id/billTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="14dp"
+        android:text="@string/bill_tv" />
+
+    <EditText
+        android:id="@+id/billEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/billTextView"
+        android:layout_alignBottom="@+id/billTextView"
+        android:layout_toRightOf="@+id/billTextView"
+        android:ems="5"
+        android:inputType="numberDecimal"
+        android:text="@string/bill_et" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/tipTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/billEditText"
+        android:layout_toRightOf="@+id/billEditText"
+        android:text="@string/tip_tv" />
+
+    <EditText
+        android:id="@+id/tipEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tipTextView"
+        android:layout_alignBottom="@+id/tipTextView"
+        android:layout_toRightOf="@+id/tipTextView"
+        android:ems="4"
+        android:inputType="numberDecimal"
+        android:text="@string/tip_et" />
+
+    <TextView
+        android:id="@+id/finalBillTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tipTextView"
+        android:layout_below="@+id/tipEditText"
+        android:layout_marginTop="14dp"
+        android:text="@string/final_bill_tv" />
+
+    <EditText
+        android:id="@+id/finalBillEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tipEditText"
+        android:layout_alignRight="@+id/tipEditText"
+        android:layout_below="@+id/finalBillTextView"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="@string/final_bill_et" />
+
+    <TextView
+        android:id="@+id/changeTipTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/finalBillTextView"
+        android:layout_alignBottom="@+id/finalBillTextView"
+        android:layout_alignLeft="@+id/billTextView"
+        android:text="@string/change_tip_tv" />
+
+    <SeekBar
+        android:id="@+id/changeTipSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/finalBillEditText"
+        android:layout_alignLeft="@+id/changeTipTextView"
+        android:layout_alignRight="@+id/billEditText"
+        android:progress="15" />
+
 </RelativeLayout>
