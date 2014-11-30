@@ -42,17 +42,6 @@
         android:layout_marginTop="14dp"
         android:text="@string/final_bill_tv" />
 
-    <EditText
-        android:id="@+id/finalBillEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tipEditText"
-        android:layout_alignRight="@+id/tipEditText"
-        android:layout_below="@+id/finalBillTextView"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="@string/final_bill_et" />
-
     <TextView
         android:id="@+id/changeTipTextView"
         android:layout_width="wrap_content"
@@ -92,5 +81,15 @@
         android:layout_toLeftOf="@+id/tipEditText"
         android:gravity="right"
         android:text="@string/tip_tv" />
+
+    <EditText
+        android:id="@+id/finalBillEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/finalBillTextView"
+        android:layout_below="@+id/finalBillTextView"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="@string/final_bill_et" />
 
 </RelativeLayout>
