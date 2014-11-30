@@ -15,4 +15,26 @@
 	
 	<string name="change_tip_tv">Change Tip</string>
 	
+	<string name="intro_tv">Introduction</string>
+	<string name="intro_friendly_tv">Friendly</string>
+	<string name="intro_special_tv">Specials</string>
+	<string name="intro_opinion_tv">Opinion</string>
+	
+	<string name="available_tv">Availability</string>
+	<string name="available_bad_rb">Bad</string>
+	<string name="available_ok_rb">OK</string>
+	<string name="available_good_rb">Good</string>
+	
+	<string name="time_waiting_tv">Time Waiting for Service</string>
+	<string name="start_chronometer_button">Start</string>
+	<string name="pause_chronometer_button">Pause</string>
+	<string name="reset_chronometer_button">Reset</string>
+	
+	<string-array name="problem_solving">
+	    <item>Problem Solving</item>
+	    <item>Bad</item>
+	    <item>OK</item>
+	    <item>Good</item>
+	</string-array>
+	
 </resources>
